@@ -6,5 +6,6 @@ public class Main {
         sch.input();
         System.out.println();
         sch.output();
+        System.out.println("Xin chao");
     }
 }
