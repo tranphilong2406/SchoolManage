@@ -31,6 +31,7 @@ public class School {
     {
         System.out.print("Enter number of member: ");
         this.numberOfMember = input.nextInt();
+        input.nextLine();
         Member mb = null;
         for (int i = 0; i < this.numberOfMember; i++) {
             int type;
@@ -58,12 +59,12 @@ public class School {
         }
     }
 
-    public int the_Highest_Seniority()
+    public int theHighestSeniority()
     {
         int result = 0;
         for (Member member : listOfMembers) {
             String type = member.getClass().getSimpleName();
-            if(type == "Teacher")
+            if(type.equals( "Teacher"))
             {
                 int temp = ((Teacher) member).seniority();
                 if(temp > result)
@@ -75,14 +76,15 @@ public class School {
         return result;
     }
     
-    public School list_Of_Teacher_With_Highest_Seniority()
+    public School listOfTeacherWithHighestSeniority()
     {
         School result = new School();
+        int highestSeniority = theHighestSeniority();
         for (Member member : listOfMembers) {
             String type = member.getClass().getSimpleName();
             if(type.equals("Teacher"))
             {
-                if(((Teacher)member).seniority() == the_Highest_Seniority())
+                if(((Teacher)member).seniority() == highestSeniority)
                 {
                     result.listOfMembers.add(member);
                 }
@@ -110,7 +112,7 @@ public class School {
         return result;
     }
 
-    public double the_Highest_Mark()
+    public double theHighestMark()
     {
         double result = 0;
         for (Member member : listOfMembers) {
@@ -126,12 +128,33 @@ public class School {
         return result;
     }
 
-    public School list_Of_Student_Highest_Mark()
+    public School listOfStudentHighestMark()
     {
         School result = new School();
+        double highestMark = theHighestMark();
         for (Member member : this.listOfMembers) {
-            
+            String type = member.getClass().getSimpleName();
+            if(type.equals("Student")){
+                if(((Student)member).averageMark() == highestMark){
+                    result.listOfMembers.add(member);
+                }
+            }
         }
+        result.numberOfMember = result.listOfMembers.size();
+        return result;
+    }
+
+    public School listOfStudentIsGood(){
+        School result = new School();
+        for (Member member : this.listOfMembers) {
+            String type = member.getClass().getSimpleName();
+            if(type.equals("Student")){
+                if(((Student)member).averageMark() > 8){
+                    result.listOfMembers.add(member);
+                }
+            }
+        }
+        result.numberOfMember = result.listOfMembers.size();
         return result;
     }
 }
